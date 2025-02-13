@@ -42,3 +42,6 @@ resources/chapters/
 resources/notes/
 resources/writing/
 stuff/
+
+# CMake
+**/build/

@@ -59,7 +59,7 @@ After installing all dependencies, you can build using CMake:
 ```bash
 mkdir build && cd build
 
-cmake -DNinja ..
+cmake -GNinja ..
 
 cmake --build .
 sudo cmake --install .
@@ -116,16 +116,16 @@ y_pred = model.predict(X_test)
 score = model.score(y_test, y_pred, /*scoring function enum*/)
 ```
 
-Build:
+**Build:**
 
 Follow the steps outlaid in the [CPython Module section](#cpython-module)pycall.py
 
-Run:
+**Run:**
 
 ```bash
 cd code
 
-python3 example_pycall.py
+python example_pycall.py
 ```
 
 The script will load the [Abalone dataset](https://archive.ics.uci.edu/dataset/1/abalone), train with predefined parameters (`ε = 0.1`) and render the first 20 trees into `code/img`.
@@ -134,22 +134,24 @@ The script will load the [Abalone dataset](https://archive.ics.uci.edu/dataset/1
 
 We refer to [main.cpp](code/cpp_gbdt/src/main.cpp) for the configuration of a single non-multithreaded cross-validated run and [evaluation.cpp](code/cpp_gbdt/src/evaluation.cpp) for a multi-threaded hyperparameter search template that creates a .csv in the [results](code/cpp_gbdt/results) directory.
 
-Build:
+**Build:**
 
 By default, the c++ example application **won't be build**. You have to set `BUILD_EXAMPLE_APPLICATION` to `ON`. This will also download the required datasets.
 
 ```bash
-mkdir build && cd build
+mkdir build # only if you did not already build
 
-cmake -DNinja -DBUILD_EXAMPLE_APPLICATION=ON ..
+cd build
+
+cmake -GNinja -DBUILD_EXAMPLE_APPLICATION=ON ..
 
 cmake --build .
 ```
 
-Run:
+**Run:**
 
 ```bash
-# IMPORTANT: Make sure you are in the same directory as the downloaded datasets
+# IMPORTANT: Make sure you are in the same directory as the downloaded datasets (i.e. build)
 # .
 # ├── code
 # │   └── cpp_gbdt
@@ -159,8 +161,6 @@ Run:
 #         ├── abalone.data
 #         ├── adult.data
 #         └── spambase.data
-
-cd build
 
 ./code/cpp_gbdt/run_example
 ```

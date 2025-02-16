@@ -15,6 +15,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import export_graphviz
 import pydot
+import pathlib
 
 
 from ucimlrepo import fetch_ucirepo
@@ -161,10 +162,13 @@ if __name__ == "__main__":
         "S-GBDT - RMSE: {0:f}".format(model.score(y_test, y_pred, 0))
     )  # 0: no_classify (rmse), 1: acc, 2: untuned_acc, 3: auc (approx), 4: auc (exact), 5: f1
 
+
+    pathlib.Path('./img').mkdir(parents=True, exist_ok=True)
+
     for i, tree in enumerate(model.exportTrees()):
         dot_data = export_graphviz(tree)
         (graph,) = pydot.graph_from_dot_data(dot_data)
-        graph.write_png(f"img/tree_{i}.png")
+        graph.write_png(f"./img/tree_{i}.png")
         
         if (i > 20):
             break # only plot the first 20 trees for the moment

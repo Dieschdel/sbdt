@@ -52,3 +52,6 @@ stuff/
 **/dist/
 **/*.egg-info/
 code/sbdt.cpp
+
+# example
+code/img

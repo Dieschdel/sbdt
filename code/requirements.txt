@@ -1,5 +1,11 @@
-numpy~=2.2.2
+numpy~=2.2.3
 scikit-learn~=1.6.1
 Cython==3.0.12
 py==1.11.0
 wheel~=0.45.1
+
+#for evaluation
+matplotlib~=3.10.0
+pandas~=2.2.3
+ucimlrepo~=0.0.7
+pydot~=3.0.4

@@ -19,11 +19,10 @@ file(GLOB PUBLIC_HEADER_FILES CONFIGURE_DEPENDS
 add_library(${TARGET} SHARED ${SOURCE_FILES})
 
 target_include_directories(${TARGET}
-    PUBLIC ${INCLUDE_DIR}
-    PUBLIC ${INCLUDE_DIR}/gbdt
+    PUBLIC $<BUILD_INTERFACE:${INCLUDE_DIR}>
+    PUBLIC $<BUILD_INTERFACE:${INCLUDE_DIR}/gbdt>
+    $<INSTALL_INTERFACE:include>
 )
-
-set_target_properties(${TARGET} PROPERTIES PUBLIC_HEADER "${PUBLIC_HEADER_FILES}")
 
 
 #################################################################
@@ -80,11 +79,42 @@ target_compile_definitions(${TARGET} PRIVATE
 # INSTALLING libsbdt
 ################################################################
 
+set(CMAKE_CONFIG_FILE sbdt-config.cmake)
+
 install(TARGETS ${TARGET}
+    EXPORT ${TARGET}
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
     ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_PREFIX}/include
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+) 
+
+install(DIRECTORY ${INCLUDE_DIR}/
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+        FILES_MATCHING
+        PATTERN "*.h"
 )
 
-install(DIRECTORY ${INCLUDE_DIR}/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include/sbdt)
+install(DIRECTORY ${INCLUDE_DIR}/gbdt
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/include/gbdt
+        FILES_MATCHING
+        PATTERN "*.h"
+)
+
+
+################################################################
+# INSTALLING CMAKE PACKAGE
+################################################################
+
+set(CMAKE_NAMESPACE sbdt::)
+
+export(TARGETS
+    ${TARGET}
+    NAMESPACE ${CMAKE_NAMESPACE}
+    FILE ${CMAKE_CONFIG_FILE}
+)
+
+install(EXPORT ${TARGET}
+    FILE ${CMAKE_CONFIG_FILE}
+    NAMESPACE ${CMAKE_NAMESPACE}
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/sbdt
+)

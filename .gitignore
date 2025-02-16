@@ -45,3 +45,10 @@ stuff/
 
 # CMake
 **/build/
+
+# Python and pip
+**/.venv/
+**/venv/
+**/dist/
+**/*.egg-info/
+code/sbdt.cpp

@@ -7,8 +7,8 @@ include(${CMAKE_CURRENT_LIST_DIR}/download_datasets.cmake)
 ################################################################
 
 set(TARGET run_example)
-file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
-    ${SOURCE_DIR}/**.cpp
+file(GLOB SOURCE_FILES CONFIGURE_DEPENDS
+    ${SOURCE_DIR}/*.cpp
 )
 
 add_executable(${TARGET} ${SOURCE_FILES})
@@ -28,9 +28,8 @@ target_link_libraries(${TARGET}
 ################################################################
 
 target_compile_options(${TARGET} PRIVATE
-    ${COMMON_COMPILE_OPTIONS}
     -c
-    -Werror
+    #-Werror
     -std=gnu++11
     -Ofast
     -pipe
@@ -39,4 +38,5 @@ target_compile_options(${TARGET} PRIVATE
     -mveclibabi=svml
     -pthread
     -flto
+    -fPIC
 )

@@ -12,11 +12,11 @@ file(GLOB SOURCE_FILES CONFIGURE_DEPENDS
 )
 
 file(GLOB PUBLIC_HEADER_FILES CONFIGURE_DEPENDS
-    ${SOURCE_DIR}/*.cpp
+    ${INCLUDE_DIR}/*.h
     ${INCLUDE_DIR}/gbdt/*.h
 )
 
-add_library(${TARGET} STATIC ${SOURCE_FILES} ${PUBLIC_HEADER_FILES})
+add_library(${TARGET} SHARED ${SOURCE_FILES})
 
 target_include_directories(${TARGET}
     PUBLIC ${INCLUDE_DIR}
@@ -77,7 +77,7 @@ target_compile_definitions(${TARGET} PRIVATE
 
 
 ################################################################
-# libsbdt BUILD FLAGS
+# INSTALLING libsbdt
 ################################################################
 
 install(TARGETS ${TARGET}

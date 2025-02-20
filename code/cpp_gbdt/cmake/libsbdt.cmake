@@ -88,14 +88,10 @@ install(TARGETS ${TARGET}
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
 ) 
 
+install(FILES ${PUBLIC_HEADER_FILES} DESTINATION include)
+
 install(DIRECTORY ${INCLUDE_DIR}/
         DESTINATION ${CMAKE_INSTALL_PREFIX}/include
-        FILES_MATCHING
-        PATTERN "*.h"
-)
-
-install(DIRECTORY ${INCLUDE_DIR}/gbdt
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/include/gbdt
         FILES_MATCHING
         PATTERN "*.h"
 )
